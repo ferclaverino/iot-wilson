@@ -78,17 +78,13 @@ services:
     volumes:
       - ./volumes/nodered/data:/data
       - ./volumes/nodered/ssh:/root/.ssh
-      - ./volumes/nodered/sensors-output:/sensors-output
-    
-    #try 3
-    #privileged: true
-    
-    # try 2
+    # for using serial port and arduino
+    # it doesn´t need it connected to start container
       - /dev:/dev:ro
     device_cgroup_rules:
       - "c 1:* rw" # access to devices like /dev/null
       - "c 166:* rmw" # change numbers to your device
-    
-    # try 1
+    # for using serial port and arduino
+    # it need it connected to start container
     # devices:
     #    - /dev/ttyACM0:/dev/ttyACM0
