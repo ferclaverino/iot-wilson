@@ -1,156 +1,142 @@
 [
-    {
-        "id": "d67477d835fe3e8d",
-        "type": "tab",
-        "label": "Wilson",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "4b1509729981ae3b",
-        "type": "serial-port",
-        "name": "",
-        "serialport": "/dev/ttyACM0",
-        "serialbaud": "9600",
-        "databits": "8",
-        "parity": "none",
-        "stopbits": "1",
-        "waitfor": "",
-        "dtr": "none",
-        "rts": "none",
-        "cts": "none",
-        "dsr": "none",
-        "newline": "\\n",
-        "bin": "false",
-        "out": "char",
-        "addchar": "",
-        "responsetimeout": "10000"
-    },
-    {
-        "id": "b3b76e95dcde4e9e",
-        "type": "influxdb",
-        "hostname": "influxdb",
-        "port": "8086",
-        "protocol": "http",
-        "database": "wilson",
-        "name": "",
-        "usetls": false,
-        "tls": "",
-        "influxdbVersion": "1.x",
-        "url": "http://influxdb:8086",
-        "timeout": "10",
-        "rejectUnauthorized": false
-    },
-    {
-        "id": "6436544999201ad3",
-        "type": "serial in",
-        "z": "d67477d835fe3e8d",
-        "name": "arduino",
-        "serial": "4b1509729981ae3b",
-        "x": 150,
-        "y": 100,
-        "wires": [
-            [
-                "fd4e2e11583829bd",
-                "6704e304cf9f4f78"
-            ]
-        ]
-    },
-    {
-        "id": "c09caacb6df1df28",
-        "type": "debug",
-        "z": "d67477d835fe3e8d",
-        "name": "debug transform 2 json",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 780,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "6f24d6ed488787bc",
-        "type": "influxdb out",
-        "z": "d67477d835fe3e8d",
-        "influxdb": "b3b76e95dcde4e9e",
-        "name": "save to influxdb",
-        "measurement": "sensors",
-        "precision": "",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ms",
-        "retentionPolicyV18Flux": "",
-        "org": "iot",
-        "bucket": "wilson",
-        "x": 760,
-        "y": 100,
-        "wires": []
-    },
-    {
-        "id": "5a674543afb5ee84",
-        "type": "change",
-        "z": "d67477d835fe3e8d",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\t    \"flow1\": payload.flow,\t    \"volume1\": payload.turnsCount * 3000 / 949\t}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 540,
-        "y": 100,
-        "wires": [
-            [
-                "c09caacb6df1df28",
-                "6f24d6ed488787bc"
-            ]
-        ]
-    },
-    {
-        "id": "fd4e2e11583829bd",
-        "type": "debug",
-        "z": "d67477d835fe3e8d",
-        "name": "debug serial read",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 410,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "6704e304cf9f4f78",
-        "type": "json",
-        "z": "d67477d835fe3e8d",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 370,
-        "y": 100,
-        "wires": [
-            [
-                "5a674543afb5ee84"
-            ]
-        ]
-    }
+  {
+    "id": "d67477d835fe3e8d",
+    "type": "tab",
+    "label": "Wilson",
+    "disabled": false,
+    "info": "",
+    "env": []
+  },
+  {
+    "id": "4b1509729981ae3b",
+    "type": "serial-port",
+    "name": "",
+    "serialport": "/dev/ttyACM0",
+    "serialbaud": "9600",
+    "databits": "8",
+    "parity": "none",
+    "stopbits": "1",
+    "waitfor": "",
+    "dtr": "none",
+    "rts": "none",
+    "cts": "none",
+    "dsr": "none",
+    "newline": "\\n",
+    "bin": "false",
+    "out": "char",
+    "addchar": "",
+    "responsetimeout": "10000"
+  },
+  {
+    "id": "$data-source-id",
+    "type": "influxdb",
+    "hostname": "influxdb",
+    "port": "8086",
+    "protocol": "http",
+    "database": "wilson",
+    "name": "",
+    "usetls": false,
+    "tls": "",
+    "influxdbVersion": "1.x",
+    "url": "http://influxdb:8086",
+    "timeout": "10",
+    "rejectUnauthorized": false
+  },
+  {
+    "id": "6436544999201ad3",
+    "type": "serial in",
+    "z": "d67477d835fe3e8d",
+    "name": "arduino",
+    "serial": "4b1509729981ae3b",
+    "x": 150,
+    "y": 100,
+    "wires": [["fd4e2e11583829bd", "6704e304cf9f4f78"]]
+  },
+  {
+    "id": "c09caacb6df1df28",
+    "type": "debug",
+    "z": "d67477d835fe3e8d",
+    "name": "debug transform 2 json",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 780,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "6f24d6ed488787bc",
+    "type": "influxdb out",
+    "z": "d67477d835fe3e8d",
+    "influxdb": "$data-source-id",
+    "name": "save to influxdb",
+    "measurement": "sensors",
+    "precision": "",
+    "retentionPolicy": "",
+    "database": "database",
+    "precisionV18FluxV20": "ms",
+    "retentionPolicyV18Flux": "",
+    "org": "iot",
+    "bucket": "wilson",
+    "x": 760,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "5a674543afb5ee84",
+    "type": "change",
+    "z": "d67477d835fe3e8d",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "{\t    \"flow1\": payload.flow,\t    \"volume1\": payload.turnsCount * 3000 / 949\t}",
+        "tot": "jsonata"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 540,
+    "y": 100,
+    "wires": [["c09caacb6df1df28", "6f24d6ed488787bc"]]
+  },
+  {
+    "id": "fd4e2e11583829bd",
+    "type": "debug",
+    "z": "d67477d835fe3e8d",
+    "name": "debug serial read",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 410,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "6704e304cf9f4f78",
+    "type": "json",
+    "z": "d67477d835fe3e8d",
+    "name": "",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 370,
+    "y": 100,
+    "wires": [["5a674543afb5ee84"]]
+  }
 ]
