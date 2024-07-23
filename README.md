@@ -1,5 +1,10 @@
 # iot-caudalimeter
 
+## Install Raspberry Pi OS lite on raspberry pi
+
+Follow https://raspberrytips.com/install-raspberry-pi-imager-ubuntu/.
+I recommend the manual installation to get latest version.
+
 ## Install on raspberry pi
 
 - Connect
