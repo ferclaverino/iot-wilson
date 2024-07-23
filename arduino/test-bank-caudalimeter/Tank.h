@@ -8,6 +8,9 @@ public:
   Tank(const float minWaterLevelDistance, const float maxWaterLevelDiscance, const unsigned int volume_mL);
   const float getWaterLevelDistance();
   const void setWaterLevelDistance(const float waterLevelDistance);
+  const void setWaterLevelOnMax();
+  const void setWaterLevelOnMin();
+
   const bool isMaxLevel();
   const bool isMinLevel();
   const float getEmptiedFlowInMlPerMinute();
@@ -15,7 +18,7 @@ public:
 
 private:
   float _minWaterLevelDistance;
-  float _maxWaterLevelDiscance;
+  float _maxWaterLevelDistance;
   unsigned int _volume_mL;
   float _waterLevelDistance;
   TimeSpanMeasure _timeSpanMeasure;

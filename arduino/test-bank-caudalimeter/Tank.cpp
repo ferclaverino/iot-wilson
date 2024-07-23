@@ -3,10 +3,10 @@
 
 Tank::Tank(const float minWaterLevelDistance, const float maxWaterLevelDiscance, const unsigned int volume_mL) {
   _minWaterLevelDistance = minWaterLevelDistance;
-  _maxWaterLevelDiscance = maxWaterLevelDiscance;
+  _maxWaterLevelDistance = maxWaterLevelDiscance;
   _volume_mL = volume_mL;
   // Assume tank is full
-  _waterLevelDistance = _maxWaterLevelDiscance;
+  _waterLevelDistance = _maxWaterLevelDistance;
 }
 
 const float Tank::getWaterLevelDistance() {
@@ -25,9 +25,17 @@ const void Tank::setWaterLevelDistance(const float waterLevelDistance) {
 
 }
 
+const void Tank::setWaterLevelOnMax() {
+  setWaterLevelDistance(_maxWaterLevelDistance);
+}
+
+const void Tank::setWaterLevelOnMin() {
+  setWaterLevelDistance(_minWaterLevelDistance);
+}
+
 const bool Tank::isMaxLevel() {
   bool isMaxLevel = false;
-  if (_waterLevelDistance <= _maxWaterLevelDiscance) {
+  if (_waterLevelDistance <= _maxWaterLevelDistance) {
     isMaxLevel = true;
   }
   return isMaxLevel;
