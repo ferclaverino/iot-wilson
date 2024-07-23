@@ -25,7 +25,7 @@
 #define BUTTON_DEBOUNCE_TIME 50
 
 #define WAIT_FOR_PUBLISH_LOOP 1000
-#define WAIT_FOR_PUBLISH_START 5000
+#define WAIT_FOR_PUBLISH_START 1000
 
 // TODO: tank controller?
 Relay pumpRelay(PUMP_RELAY_PIN);
@@ -50,12 +50,13 @@ void setup() {
   pumpRelay.begin();
   waterDistance.begin();
   caudalimeter.begin(caudalimeterTick);
+  // TODO init buttons
 }
 
 bool isAutoMode = true;
 
 void loop() {
-
+  // TODO remove auto
   if (isAutoMode) {
     if (waitforReadDistance.done()) {
       // TODO this returns wrong distance some times and turn off pump at mid level

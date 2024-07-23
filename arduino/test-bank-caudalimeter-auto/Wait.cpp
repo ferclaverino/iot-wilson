@@ -1,8 +1,7 @@
 #include "Arduino.h"
 #include "Wait.h"
 
-Wait::Wait(const unsigned int waitTimeForLoopInmillis) {
-  Wait(waitTimeForLoopInmillis, 0);
+Wait::Wait(const unsigned int waitTimeForLoopInmillis) : Wait(waitTimeForLoopInmillis, 0) {
 }
 
 Wait::Wait(const unsigned int waitTimeForLoopInmillis, const unsigned int waitTimeForStartInmillis) {
