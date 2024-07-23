@@ -50,7 +50,7 @@ I recommend the manual installation to get latest version.
   git clone git@github.com:ferclaverino/iot-caudalimeter.git
   ```
 
-## Setup for 1st time
+### Setup for 1st time
 
 - Start containers
 
@@ -81,7 +81,7 @@ I recommend the manual installation to get latest version.
 
 ## Install on Arduino
 
-## Upload arduino with mock sketch
+### Upload arduino with mock sketch
 
 ```
 cd iot-caudalimeter/arduino/mock-serial-json
@@ -89,8 +89,31 @@ arduino-cli compile --fqbn arduino:avr:uno
 arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno
 ```
 
-## Debug serial monitor
+### Debug serial monitor
 
 ```
 arduino-cli monitor -p /dev/ttyACM0
+```
+
+## During development
+
+### Mount remote pi folder
+
+#### Setup for 1st time
+
+```
+sudo apt install sshfs
+mkdir ~/pi3/
+```
+
+#### Mount
+
+```
+sshfs -o default_permissions pi@pi3.local:/home/pi ~/pi3/
+```
+
+#### Unmount
+
+```
+fusermount3 -u ~/pi3/
 ```
