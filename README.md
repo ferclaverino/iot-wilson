@@ -88,3 +88,9 @@ cd iot-caudalimeter/arduino/mock-serial-json
 arduino-cli compile --fqbn arduino:avr:uno
 arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno
 ```
+
+## Debug serial monitor
+
+```
+arduino-cli monitor -p /dev/ttyACM0
+```
