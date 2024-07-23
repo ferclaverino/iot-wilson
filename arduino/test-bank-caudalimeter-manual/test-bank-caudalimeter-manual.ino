@@ -25,7 +25,7 @@
 #define BUTTON_DEBOUNCE_TIME 50
 
 #define WAIT_FOR_PUBLISH_LOOP 1000
-#define WAIT_FOR_PUBLISH_START 1000
+#define WAIT_FOR_PUBLISH_START 5000
 
 // TODO: tank controller?
 Relay pumpRelay(PUMP_RELAY_PIN);
@@ -39,7 +39,8 @@ PushButtonDigitalRead minLevelButton(MAX_LEVEL_BUTTON_PIN, BUTTON_DEBOUNCE_TIME)
 Caudalimeter caudalimeter(CAUDALIMETER_PIN);
 CaudalimeterSampler caudalimeterSampler(CAUDALIMETER_BUFFER_SIZE, CAUDALIMETER_SAMPLE_RATE);
 
-Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
+// Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
+Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP);
 
 void caudalimeterTick() {
   caudalimeter.tick();
@@ -50,35 +51,18 @@ void setup() {
   pumpRelay.begin();
   waterDistance.begin();
   caudalimeter.begin(caudalimeterTick);
-  // TODO init buttons
+  maxLevelButton.begin();
+  minLevelButton.begin();
 }
 
-bool isAutoMode = true;
-
 void loop() {
-  // TODO remove auto
-  if (isAutoMode) {
-    if (waitforReadDistance.done()) {
-      // TODO this returns wrong distance some times and turn off pump at mid level
-      tank.setWaterLevelDistance(waterDistance.getDistanceInCm());
-    }
-  }
-  else {
-    if (maxLevelButton.isPush()) {
-      isAutoMode = false;
-      tank.setWaterLevelOnMax();
-    }
-    else {
-      isAutoMode = true;
-    }
 
-    if (minLevelButton.isPush()) {
-      isAutoMode = false;
-      tank.setWaterLevelOnMin();
-    }
-    else {
-      isAutoMode = true;
-    }
+  if (maxLevelButton.isPush()) {
+    tank.setWaterLevelOnMax();
+  }
+
+  if (minLevelButton.isPush()) {
+    tank.setWaterLevelOnMin();
   }
 
   if (tank.isMinLevel()) {
@@ -102,17 +86,14 @@ void loop() {
   if (waitforPublish.done()) {
     noInterrupts();
 
-    publishDebug(isAutoMode, tank, caudalimeter, caudalimeterSampler);
+    publishDebug(tank, caudalimeter, caudalimeterSampler);
 
     interrupts();
   }
 
 }
 
-void publishDebug(bool isAutoMode, Tank tank, Caudalimeter caudalimeter, CaudalimeterSampler caudalimeterSampler) {
-  Serial.print(isAutoMode);
-  Serial.print(", ");
-
+void publishDebug(Tank tank, Caudalimeter caudalimeter, CaudalimeterSampler caudalimeterSampler) {
   Serial.print(tank.getWaterLevelDistance());
   Serial.print(", ");
 
