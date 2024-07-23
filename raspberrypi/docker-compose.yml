@@ -79,12 +79,12 @@ services:
       - ./volumes/nodered/data:/data
       - ./volumes/nodered/ssh:/root/.ssh
     # for using serial port and arduino
-    # it doesn´t need it connected to start container
+    # it doesn´t need to be connected to start container
       - /dev:/dev:ro
     device_cgroup_rules:
       - "c 1:* rw" # access to devices like /dev/null
       - "c 166:* rmw" # change numbers to your device
     # for using serial port and arduino
-    # it need it connected to start container
+    # it needs to be connected to start container
     # devices:
     #    - /dev/ttyACM0:/dev/ttyACM0

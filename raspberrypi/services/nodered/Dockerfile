@@ -33,4 +33,4 @@ RUN cd /usr/src/node-red && npm install --save  node-red-contrib-boolean-logic
 RUN cd /usr/src/node-red && npm install --save  node-red-configurable-ping
 RUN cd /usr/src/node-red && npm install --save  node-red-node-serialport
 # fix for node-serialport provided by https://github.com/node-red/node-red/issues/3461#issuecomment-1076348639
-RUN cd /usr/src/node-red && npm rebuild --build-from-source
+#RUN cd /usr/src/node-red && npm rebuild --build-from-source
