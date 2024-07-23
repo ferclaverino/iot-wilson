@@ -1,11 +1,18 @@
 # iot-caudalimeter
 
-## Install Raspberry Pi OS lite on raspberry pi
+## Install on Raspberry
+
+### Install Raspberry Pi OS lite
 
 Follow https://raspberrytips.com/install-raspberry-pi-imager-ubuntu/.
 I recommend the manual installation to get latest version.
 
-## Install on raspberry pi
+### Install arduino-cli on raspberry pi
+
+- https://arduino.github.io/arduino-cli/1.0/installation/
+- https://arduino.github.io/arduino-cli/1.0/getting-started/
+
+### Install iot stack on raspberry pi
 
 - Connect
 
@@ -71,3 +78,13 @@ I recommend the manual installation to get latest version.
 - Create flow on node red
   - Import `services/nodered/setup/flows.json`
   - Deploy
+
+## Install on Arduino
+
+## Upload arduino with mock sketch
+
+```
+cd iot-caudalimeter/arduino/mock-serial-json
+arduino-cli compile --fqbn arduino:avr:uno
+arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno
+```
