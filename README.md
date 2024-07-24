@@ -81,12 +81,12 @@ I recommend the manual installation to get latest version.
 
 ## Install on Arduino
 
-### Upload arduino with mock sketch
+### Upload arduino
 
 ```
-cd iot-caudalimeter/arduino/mock-serial-json
-arduino-cli compile --fqbn arduino:avr:uno
-arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno
+cd iot-caudalimeter/arduino/
+arduino-cli compile --fqbn arduino:avr:uno mock-serial-json
+arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno mock-serial-json
 ```
 
 ### Debug serial monitor
@@ -97,23 +97,8 @@ arduino-cli monitor -p /dev/ttyACM0
 
 ## During development
 
-### Mount remote pi folder
-
-#### Setup for 1st time
+### Upload and serial monitor manual test bench
 
 ```
-sudo apt install sshfs
-mkdir ~/pi3/
-```
-
-#### Mount
-
-```
-sshfs -o default_permissions pi@pi3.local:/home/pi ~/pi3/
-```
-
-#### Unmount
-
-```
-fusermount3 -u ~/pi3/
+arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-manual && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-manual && arduino-cli monitor -p /dev/ttyACM0
 ```
