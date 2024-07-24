@@ -1,5 +1,5 @@
-#include "ArduinoJson-v7.1.0.h"
-#include "Wait.h"
+#include "src/serialization/ArduinoJson-v7.1.0.h"
+#include "src/time/Wait.h"
 
 #define WAIT_FOR_PUBLISH_LOOP 1000
 #define WAIT_FOR_PUBLISH_START 5000
