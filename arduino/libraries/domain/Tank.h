@@ -1,7 +1,7 @@
 #ifndef Tank_h
 #define Tank_h
 
-#include "TimeSpanMeasure.h"
+#include "../time/TimeSpanMeasure.h"
 
 class Tank {
 public:
@@ -13,7 +13,6 @@ public:
 
   const bool isMaxLevel();
   const bool isMinLevel();
-  const float getEmptiedFlowInMlPerMinute();
   const float getEmptiedTimeSpanInSeconds();
 
 private:

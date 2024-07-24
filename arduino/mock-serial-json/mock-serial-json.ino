@@ -4,7 +4,7 @@
 #define WAIT_FOR_PUBLISH_LOOP 1000
 #define WAIT_FOR_PUBLISH_START 5000
 
-Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
+Wait waitforDebug(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
 
 void setup() {
   Serial.begin(9600);
@@ -13,7 +13,7 @@ void setup() {
 
 void loop() {
 
-  if (waitforPublish.done()) {
+  if (waitforDebug.done()) {
     long flow = random(1000, 3000);
     long turnsCount = random(0, 10);
 

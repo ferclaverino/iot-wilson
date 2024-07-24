@@ -33,7 +33,7 @@ Caudalimeter caudalimeter(CAUDALIMETER_PIN);
 CaudalimeterSampler caudalimeterSampler(CAUDALIMETER_BUFFER_SIZE, CAUDALIMETER_SAMPLE_RATE);
 
 // Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
-Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP);
+Wait waitforDebug(WAIT_FOR_PUBLISH_LOOP);
 
 void caudalimeterTick() {
   caudalimeter.tick();
@@ -72,7 +72,7 @@ void loop() {
 
   caudalimeterSampler.sample(caudalimeter.getTickCount());
 
-  if (waitforPublish.done()) {
+  if (waitforDebug.done()) {
     noInterrupts();
 
     Serial.print(tank.getWaterLevelDistance());

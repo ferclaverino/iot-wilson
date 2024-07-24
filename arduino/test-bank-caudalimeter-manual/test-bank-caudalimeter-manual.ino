@@ -1,10 +1,8 @@
-#include "Relay.h"
-#include "HCSR04.h"
-#include "Tank.h"
-#include "Wait.h"
-#include "Caudalimeter.h"
-#include "CaudalimeterSampler.h"
-#include "PushButtonDigitalRead.h"
+#include "src/actuators/Relay.h"
+#include "src/domain/Tank.h"
+#include "src/time/Wait.h"
+#include "src/sensors/Caudalimeter.h"
+#include "src/sensors/Button.h"
 #include <math.h>
 
 #define CAUDALIMETER_PIN 2
@@ -27,20 +25,16 @@
 #define WAIT_FOR_PUBLISH_LOOP 1000
 #define WAIT_FOR_PUBLISH_START 5000
 
-// TODO: tank controller?
 Relay pumpRelay(PUMP_RELAY_PIN);
-HCSR04 waterDistance(WATER_DISTANCE_TRIGGER_PIN, WATER_DISTANCE_ECHO_PIN);
 Tank tank(TANK_MIN_WATER_LEVEL_DISTANCE, TANK_MAX_WATER_LEVEL_DISTANCE, TANK_VOLUME);
 Wait waitforReadDistance(TANK_WAIT_FOR_READ_DISTANCE);
-PushButtonDigitalRead maxLevelButton(MAX_LEVEL_BUTTON_PIN, BUTTON_DEBOUNCE_TIME);
-PushButtonDigitalRead minLevelButton(MIN_LEVEL_BUTTON_PIN, BUTTON_DEBOUNCE_TIME);
+Button maxLevelButton(MAX_LEVEL_BUTTON_PIN, BUTTON_DEBOUNCE_TIME);
+Button minLevelButton(MIN_LEVEL_BUTTON_PIN, BUTTON_DEBOUNCE_TIME);
 
-// TODO: caudalimeter controller?
 Caudalimeter caudalimeter(CAUDALIMETER_PIN);
-CaudalimeterSampler caudalimeterSampler(CAUDALIMETER_BUFFER_SIZE, CAUDALIMETER_SAMPLE_RATE);
 
 // Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
-Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP);
+Wait waitforDebug(WAIT_FOR_PUBLISH_LOOP);
 
 void caudalimeterTick() {
   caudalimeter.tick();
@@ -49,7 +43,6 @@ void caudalimeterTick() {
 void setup() {
   Serial.begin(9600);
   pumpRelay.begin();
-  waterDistance.begin();
   caudalimeter.begin(caudalimeterTick);
   maxLevelButton.begin();
   minLevelButton.begin();
@@ -57,74 +50,41 @@ void setup() {
 
 void loop() {
 
-  if (maxLevelButton.isPush()) {
+  if (maxLevelButton.isToggle()) {
     tank.setWaterLevelOnMax();
   }
 
-  if (minLevelButton.isPush()) {
+  if (minLevelButton.isToggle()) {
     tank.setWaterLevelOnMin();
   }
 
   if (tank.isMinLevel()) {
-    if (!pumpRelay.isOn()) {
-      caudalimeter.reset();
-      caudalimeterSampler.reset();
-    }
     pumpRelay.on();
   }
 
   if (tank.isMaxLevel()) {
-    if (pumpRelay.isOn()) {
-      caudalimeter.reset();
-      caudalimeterSampler.reset();
-    }
     pumpRelay.off();
   }
 
-  caudalimeterSampler.sample(caudalimeter.getTickCount());
-
-  if (waitforPublish.done()) {
+  if (waitforDebug.done()) {
     noInterrupts();
 
-    publishDebug(tank, caudalimeter, caudalimeterSampler);
+    publishDebug(tank, caudalimeter);
 
     interrupts();
   }
 
 }
 
-void publishDebug(Tank tank, Caudalimeter caudalimeter, CaudalimeterSampler caudalimeterSampler) {
+void publishDebug(Tank tank, Caudalimeter caudalimeter) {
   Serial.print(tank.getWaterLevelDistance());
   Serial.print(", ");
 
-  // Serial.print(tank.getEmptiedTimeSpanInSeconds());
-  // Serial.print(", ");
+  Serial.print(tank.getEmptiedTimeSpanInSeconds());
+  Serial.print(", ");
 
-  // Serial.print(tank.getEmptiedFlowInMlPerMinute());
-  // Serial.print(", ");
-
-  // Serial.print(caudalimeter.getTickCount());
-  // Serial.print(", ");
-
-  // 3000 ml -> 949 tick count
-  // const float k = 3000.0 / 949.0;
-  // const unsigned int volumeBasedOnTickCount = (int)round(caudalimeter.getTickCount() * k);
-  // Serial.print(volumeBasedOnTickCount);
-  // Serial.print(", ");
-
-  // const unsigned int freq = caudalimeterSampler.getFrequency();
-  // Serial.print(caudalimeterSampler.getFrequency());
-  // Serial.print(", ");
-
-  // const float flow = freq * k;
-  // Serial.print(flow);
-  // Serial.print(", ");
-
-  // Serial.print("reference flow (ml/minute): ");
-  // Serial.print(tank.getEmptiedFlowInMlPerMinute());
-
-  // Serial.print(" caudalimeter frequency (cycles/minute): ");
-  // Serial.print(caudalimeterSampler.getFrequency());
+  Serial.print(caudalimeter.getTickCount());
+  Serial.print(", ");
 
   Serial.println();
 }

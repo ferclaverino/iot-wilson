@@ -1,5 +1,5 @@
 #include "Tank.h"
-#include "TimeSpanMeasure.h"
+#include "../time/TimeSpanMeasure.h"
 
 Tank::Tank(const float minWaterLevelDistance, const float maxWaterLevelDiscance, const unsigned int volume_mL) {
   _minWaterLevelDistance = minWaterLevelDistance;
@@ -47,18 +47,6 @@ const bool Tank::isMinLevel() {
     isMinLevel = true;
   }
   return isMinLevel;
-}
-
-const float Tank::getEmptiedFlowInMlPerMinute() {
-  float time_s = getEmptiedTimeSpanInSeconds();
-  if (time_s == 0) {
-    return 0;
-  }
-
-  float volume_ml = (float)_volume_mL;
-  float time_m = time_s / 60.0;
-
-  return _volume_mL / time_m;
 }
 
 const float Tank::getEmptiedTimeSpanInSeconds() {
