@@ -1,9 +1,9 @@
-#include "Relay.h"
-#include "HCSR04.h"
-#include "Tank.h"
-#include "Wait.h"
-#include "Caudalimeter.h"
-#include "CaudalimeterSampler.h"
+#include "src/actuators/Relay.h"
+#include "src/sensors/HCSR04.h"
+#include "src/domain/Tank.h"
+#include "src/time/Wait.h"
+#include "src/sensors/Caudalimeter.h"
+#include "src/domain/CaudalimeterSampler.h"
 #include <math.h>
 
 #define CAUDALIMETER_PIN 2
@@ -80,10 +80,6 @@ void loop() {
 
     Serial.print(tank.getEmptiedTimeSpanInSeconds());
     Serial.print(", ");
-
-    Serial.print(tank.getEmptiedFlowInMlPerMinute());
-    Serial.print(", ");
-
 
     Serial.print(caudalimeter.getTickCount());
     Serial.print(", ");

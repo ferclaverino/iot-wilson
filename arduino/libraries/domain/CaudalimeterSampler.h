@@ -1,8 +1,8 @@
 #ifndef CaudalimeterSampler_h
 #define CaudalimeterSampler_h
 
-#include "Wait.h"
-#include "CircularBuffer.h"
+#include "../time/Wait.h"
+#include "../memory/CircularBuffer.h"
 
 class CaudalimeterSampler {
 public:
