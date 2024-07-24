@@ -3,7 +3,7 @@
 #include "src/time/Wait.h"
 #include "src/sensors/Caudalimeter.h"
 #include "src/sensors/Button.h"
-#include <math.h>
+#include "src/gateways/MetricsGateway.h"
 
 #define CAUDALIMETER_PIN 2
 #define MAX_LEVEL_BUTTON_PIN 3
@@ -16,17 +16,20 @@
 
 #define BUTTON_DEBOUNCE_TIME 50
 
-#define WAIT_FOR_PUBLISH_LOOP 1000
+#define WAIT_FOR_DEBUG 1000
+#define WAIT_FOR_PUBLISH_LOOP 5000
 #define WAIT_FOR_PUBLISH_START 5000
 
 Relay pumpRelay(PUMP_RELAY_PIN);
 Tank tank(TANK_MIN_WATER_LEVEL_DISTANCE, TANK_MAX_WATER_LEVEL_DISTANCE, TANK_VOLUME);
 Button maxLevelButton(MAX_LEVEL_BUTTON_PIN, BUTTON_DEBOUNCE_TIME);
 Button minLevelButton(MIN_LEVEL_BUTTON_PIN, BUTTON_DEBOUNCE_TIME);
-
 Caudalimeter caudalimeter(CAUDALIMETER_PIN);
 
-Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP);
+Wait waitforDebug(WAIT_FOR_DEBUG);
+Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
+
+MetricsGateway metricsGateway(Serial);
 
 void caudalimeterTick() {
   caudalimeter.tick();
@@ -49,7 +52,7 @@ void loop() {
 
   if (minLevelButton.isToggle()) {
     tank.setWaterLevelOnMin();
-    publishMetrics(tank, caudalimeter);
+    // logTankEmptied();
   }
 
   if (tank.isMinLevel()) {
@@ -60,10 +63,12 @@ void loop() {
     pumpRelay.off();
   }
 
-  // debug(tank, caudalimeter);
+  publishMetrics();
+
+  debug();
 }
 
-void publishMetrics(Tank tank, Caudalimeter caudalimeter) {
+void logTankEmptied() {
   Serial.print(tank.getEmptiedTimeSpanInSeconds());
   Serial.print(", ");
 
@@ -71,25 +76,30 @@ void publishMetrics(Tank tank, Caudalimeter caudalimeter) {
   Serial.println();
 }
 
-void debug(Tank tank, Caudalimeter caudalimeter) {
+void publishMetrics() {
   if (waitforPublish.done()) {
-    // There is a serial and interrupts issue: https://forum.arduino.cc/t/nointerrupts-and-serial-write-issues/140133
-    // but I don´t have it
-    // noInterrupts();
-    publishDebug(tank, caudalimeter);
-    // interrupts();
+    metricsGateway.publish(caudalimeter.getTickCount());
+    caudalimeter.reset();
   }
 }
 
-void publishDebug(Tank tank, Caudalimeter caudalimeter) {
-  Serial.print(tank.getWaterLevelDistance());
-  Serial.print(", ");
+void debug() {
+  if (waitforDebug.done()) {
+    // There is a serial and interrupts issue: https://forum.arduino.cc/t/nointerrupts-and-serial-write-issues/140133
+    // but I don´t have it
+    // noInterrupts();
 
-  Serial.print(tank.getEmptiedTimeSpanInSeconds());
-  Serial.print(", ");
+    Serial.print(tank.getWaterLevelDistance());
+    Serial.print(", ");
 
-  Serial.print(caudalimeter.getTickCount());
-  Serial.print(", ");
+    Serial.print(tank.getEmptiedTimeSpanInSeconds());
+    Serial.print(", ");
 
-  Serial.println();
+    Serial.print(caudalimeter.getTickCount());
+    Serial.print(", ");
+
+    Serial.println();
+
+    // interrupts();
+  }
 }
