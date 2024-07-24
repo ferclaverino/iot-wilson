@@ -3,6 +3,7 @@
 #include "src/domain/Tank.h"
 #include "src/time/Wait.h"
 #include "src/sensors/Caudalimeter.h"
+#include "src/gateways/MetricsGateway.h"
 
 #define CAUDALIMETER_PIN 2
 #define PUMP_RELAY_PIN 7
@@ -14,18 +15,20 @@
 #define TANK_VOLUME 3000
 #define TANK_WAIT_FOR_READ_DISTANCE 100
 
-#define WAIT_FOR_PUBLISH_LOOP 1000
+#define WAIT_FOR_DEBUG 1000
+#define WAIT_FOR_PUBLISH_LOOP 5000
 #define WAIT_FOR_PUBLISH_START 5000
 
 Relay pumpRelay(PUMP_RELAY_PIN);
 HCSR04 waterDistance(WATER_DISTANCE_TRIGGER_PIN, WATER_DISTANCE_ECHO_PIN);
 Tank tank(TANK_MIN_WATER_LEVEL_DISTANCE, TANK_MAX_WATER_LEVEL_DISTANCE, TANK_VOLUME);
 Wait waitforReadDistance(TANK_WAIT_FOR_READ_DISTANCE);
-
 Caudalimeter caudalimeter(CAUDALIMETER_PIN);
 
-// Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
-Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP);
+Wait waitforDebug(WAIT_FOR_DEBUG);
+Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
+
+MetricsGateway metricsGateway(Serial);
 
 void caudalimeterTick() {
   caudalimeter.tick();
@@ -60,29 +63,38 @@ void loop() {
 
   }
 
-  debug(tank, caudalimeter);
+  if (tank.isEmptying()) {
+    publishMetrics();
+  }
+
+  // debug();
 
 }
 
-void debug(Tank tank, Caudalimeter caudalimeter) {
+void publishMetrics() {
   if (waitforPublish.done()) {
-    // There is a serial and interrupts issue: https://forum.arduino.cc/t/nointerrupts-and-serial-write-issues/140133
-    // but I don´t have it
-    // noInterrupts();
-    publishDebug(tank, caudalimeter);
-    // interrupts();
+    metricsGateway.publish(caudalimeter.getTickCount());
+    caudalimeter.reset();
   }
 }
 
-void publishDebug(Tank tank, Caudalimeter caudalimeter) {
-  Serial.print(tank.getWaterLevelDistance());
-  Serial.print(", ");
+void debug() {
+  if (waitforDebug.done()) {
+    // There is a serial and interrupts issue: https://forum.arduino.cc/t/nointerrupts-and-serial-write-issues/140133
+    // but I don´t have it
+    // noInterrupts();
 
-  Serial.print(tank.getEmptiedTimeSpanInSeconds());
-  Serial.print(", ");
+    Serial.print(tank.getWaterLevelDistance());
+    Serial.print(", ");
 
-  Serial.print(caudalimeter.getTickCount());
-  Serial.print(", ");
+    Serial.print(tank.getEmptiedTimeSpanInSeconds());
+    Serial.print(", ");
 
-  Serial.println();
+    Serial.print(caudalimeter.getTickCount());
+    Serial.print(", ");
+
+    Serial.println();
+
+    // interrupts();
+  }
 }
