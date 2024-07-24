@@ -97,7 +97,7 @@
         "t": "set",
         "p": "payload",
         "pt": "msg",
-        "to": "{\t    \"flow1\": payload.flow,\t    \"volume1\": payload.turnsCount * 3000 / 949\t}",
+        "to": "{\t    \"flow1\": payload.flow,\t    \"volume1\": payload.turnsCount * 3000 / 416\t}",
         "tot": "jsonata"
       }
     ],
