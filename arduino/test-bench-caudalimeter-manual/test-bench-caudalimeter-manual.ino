@@ -63,7 +63,9 @@ void loop() {
     pumpRelay.off();
   }
 
-  publishMetrics();
+  if (tank.isEmptying()) {
+    publishMetrics();
+  }
 
   debug();
 }
@@ -88,6 +90,9 @@ void debug() {
     // There is a serial and interrupts issue: https://forum.arduino.cc/t/nointerrupts-and-serial-write-issues/140133
     // but I don´t have it
     // noInterrupts();
+
+    Serial.print(tank.isEmptying());
+    Serial.print(", ");
 
     Serial.print(tank.getWaterLevelDistance());
     Serial.print(", ");

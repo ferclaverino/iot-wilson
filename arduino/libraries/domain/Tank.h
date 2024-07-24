@@ -13,6 +13,7 @@ public:
 
   const bool isMaxLevel();
   const bool isMinLevel();
+  const bool isEmptying();
   const float getEmptiedTimeSpanInSeconds();
 
 private:
@@ -21,6 +22,7 @@ private:
   unsigned int _volume_mL;
   float _waterLevelDistance;
   TimeSpanMeasure _timeSpanMeasure;
+  bool _isEmptying;
 };
 
 #endif

@@ -7,6 +7,7 @@ Tank::Tank(const float minWaterLevelDistance, const float maxWaterLevelDiscance,
   _volume_mL = volume_mL;
   // Assume tank is full
   _waterLevelDistance = _maxWaterLevelDistance;
+  _isEmptying = true;
 }
 
 const float Tank::getWaterLevelDistance() {
@@ -18,11 +19,12 @@ const void Tank::setWaterLevelDistance(const float waterLevelDistance) {
 
   if (isMaxLevel()) {
     _timeSpanMeasure.start();
+    _isEmptying = true;
   }
   if (isMinLevel()) {
     _timeSpanMeasure.stop();
+    _isEmptying = false;
   }
-
 }
 
 const void Tank::setWaterLevelOnMax() {
@@ -47,6 +49,10 @@ const bool Tank::isMinLevel() {
     isMinLevel = true;
   }
   return isMinLevel;
+}
+
+const bool Tank::isEmptying() {
+  return _isEmptying;
 }
 
 const float Tank::getEmptiedTimeSpanInSeconds() {
