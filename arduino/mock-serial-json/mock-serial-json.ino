@@ -1,10 +1,11 @@
-#include "src/serialization/ArduinoJson-v7.1.0.h"
+#include "src/gateways/MetricsGateway.h"
 #include "src/time/Wait.h"
 
 #define WAIT_FOR_PUBLISH_LOOP 1000
 #define WAIT_FOR_PUBLISH_START 5000
 
-Wait waitforDebug(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
+MetricsGateway metricsGateway(Serial);
+Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
 
 void setup() {
   Serial.begin(9600);
@@ -13,23 +14,8 @@ void setup() {
 
 void loop() {
 
-  if (waitforDebug.done()) {
-    long flow = random(1000, 3000);
+  if (waitforPublish.done()) {
     long turnsCount = random(0, 10);
-
-    JsonDocument jsonMetric = createJsonMetric(flow, turnsCount);
-    publishJsonMetric(jsonMetric);
+    metricsGateway.publish(turnsCount);
   }
-}
-
-JsonDocument createJsonMetric(long flow, long turnsCount) {
-  JsonDocument doc;
-  doc["flow"] = flow;
-  doc["turnsCount"] = turnsCount;
-  return doc;
-}
-
-void publishJsonMetric(JsonDocument doc) {
-  serializeJson(doc, Serial);
-  Serial.println();
 }

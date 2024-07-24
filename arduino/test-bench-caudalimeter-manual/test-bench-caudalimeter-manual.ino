@@ -26,7 +26,7 @@ Button minLevelButton(MIN_LEVEL_BUTTON_PIN, BUTTON_DEBOUNCE_TIME);
 
 Caudalimeter caudalimeter(CAUDALIMETER_PIN);
 
-Wait waitforDebug(WAIT_FOR_PUBLISH_LOOP);
+Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP);
 
 void caudalimeterTick() {
   caudalimeter.tick();
@@ -72,7 +72,7 @@ void publishMetrics(Tank tank, Caudalimeter caudalimeter) {
 }
 
 void debug(Tank tank, Caudalimeter caudalimeter) {
-  if (waitforDebug.done()) {
+  if (waitforPublish.done()) {
     // There is a serial and interrupts issue: https://forum.arduino.cc/t/nointerrupts-and-serial-write-issues/140133
     // but I don´t have it
     // noInterrupts();

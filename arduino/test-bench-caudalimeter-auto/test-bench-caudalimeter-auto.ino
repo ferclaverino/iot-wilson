@@ -25,7 +25,7 @@ Wait waitforReadDistance(TANK_WAIT_FOR_READ_DISTANCE);
 Caudalimeter caudalimeter(CAUDALIMETER_PIN);
 
 // Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
-Wait waitforDebug(WAIT_FOR_PUBLISH_LOOP);
+Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP);
 
 void caudalimeterTick() {
   caudalimeter.tick();
@@ -65,7 +65,7 @@ void loop() {
 }
 
 void debug(Tank tank, Caudalimeter caudalimeter) {
-  if (waitforDebug.done()) {
+  if (waitforPublish.done()) {
     // There is a serial and interrupts issue: https://forum.arduino.cc/t/nointerrupts-and-serial-write-issues/140133
     // but I don´t have it
     // noInterrupts();
