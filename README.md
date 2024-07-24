@@ -102,3 +102,9 @@ arduino-cli monitor -p /dev/ttyACM0
 ```
 arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-manual && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-manual && arduino-cli monitor -p /dev/ttyACM0
 ```
+
+### Upload and serial monitor automatic test bench
+
+```
+arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-auto && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-auto && arduino-cli monitor -p /dev/ttyACM0
+```
