@@ -1,8 +1,6 @@
 #ifndef Debounce_h
 #define Debounce_h
 
-#include "Arduino.h"
-
 class Debounce {
 public:
   Debounce(const unsigned int debounceTimeInmillis);

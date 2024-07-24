@@ -1,7 +1,6 @@
 #ifndef Button_h
 #define Button_h
 
-#include "Arduino.h"
 #include "../time/Debounce.h"
 
 class Button {
