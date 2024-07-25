@@ -28,7 +28,7 @@
     "responsetimeout": "10000"
   },
   {
-    "id": "$data-source-id",
+    "id": "b3b76e95dcde4e9e",
     "type": "influxdb",
     "hostname": "influxdb",
     "port": "8086",
@@ -73,7 +73,7 @@
     "id": "6f24d6ed488787bc",
     "type": "influxdb out",
     "z": "d67477d835fe3e8d",
-    "influxdb": "$data-source-id",
+    "influxdb": "b3b76e95dcde4e9e",
     "name": "save to influxdb",
     "measurement": "sensors",
     "precision": "",
@@ -97,7 +97,7 @@
         "t": "set",
         "p": "payload",
         "pt": "msg",
-        "to": "{\t    \"flow1\": payload.flow,\t    \"volume1\": payload.turnsCount * 3000 / 416\t}",
+        "to": "{\t    \"volume1\": payload.pulseCount * 3000 / 416\t}",
         "tot": "jsonata"
       }
     ],
