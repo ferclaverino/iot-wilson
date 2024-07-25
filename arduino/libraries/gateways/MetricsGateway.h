@@ -7,12 +7,12 @@
 class MetricsGateway {
 public:
   MetricsGateway(Stream& port);
-  void publish(const unsigned long turnsCount);
+  void publish(const unsigned long pulseCount);
 
 private:
   Stream& _port;
 
-  const JsonDocument createJsonMetric(const unsigned long turnsCount);
+  const JsonDocument createJsonMetric(const unsigned long pulseCount);
   void publishJsonMetric(const JsonDocument doc);
 };
 

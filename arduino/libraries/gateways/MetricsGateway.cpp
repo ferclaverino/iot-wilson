@@ -3,14 +3,14 @@
 MetricsGateway::MetricsGateway(Stream& port) : _port(port) {
 }
 
-void MetricsGateway::publish(const unsigned long turnsCount) {
-  JsonDocument jsonMetric = createJsonMetric(turnsCount);
+void MetricsGateway::publish(const unsigned long pulseCount) {
+  JsonDocument jsonMetric = createJsonMetric(pulseCount);
   publishJsonMetric(jsonMetric);
 }
 
-const JsonDocument MetricsGateway::createJsonMetric(const unsigned long turnsCount) {
+const JsonDocument MetricsGateway::createJsonMetric(const unsigned long pulseCount) {
   JsonDocument jsonMetric;
-  jsonMetric["turnsCount"] = turnsCount;
+  jsonMetric["pulseCount"] = pulseCount;
   return jsonMetric;
 }
 
