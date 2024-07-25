@@ -52,7 +52,7 @@ void loop() {
 
   if (minLevelButton.isToggle()) {
     tank.setWaterLevelOnMin();
-    // logTankEmptied();
+    logTankEmptied();
   }
 
   if (tank.isMinLevel()) {
@@ -63,9 +63,9 @@ void loop() {
     pumpRelay.off();
   }
 
-  if (tank.isLevelGoingDown()) {
-    publishMetrics();
-  }
+  // if (tank.isLevelGoingDown()) {
+  //   publishMetrics();
+  // }
 
   // debug();
 }
