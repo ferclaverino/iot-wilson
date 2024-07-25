@@ -16,6 +16,7 @@ void Caudalimeter::begin(const TickCallback tickCalback) {
 }
 
 void Caudalimeter::reset() {
+  //TODO stop digital interrupt
   _tickCount = 0;
 }
 

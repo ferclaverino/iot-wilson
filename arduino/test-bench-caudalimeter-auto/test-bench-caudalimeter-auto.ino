@@ -64,6 +64,7 @@ void loop() {
   }
 
   if (tank.isLevelGoingDown()) {
+    // TODO could be there is some pulse count not being published when level is going up
     publishMetrics();
   }
 
