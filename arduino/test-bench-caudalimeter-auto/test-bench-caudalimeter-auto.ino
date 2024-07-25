@@ -63,7 +63,7 @@ void loop() {
 
   }
 
-  if (tank.isEmptying()) {
+  if (tank.isLevelGoingDown()) {
     publishMetrics();
   }
 

@@ -63,7 +63,7 @@ void loop() {
     pumpRelay.off();
   }
 
-  if (tank.isEmptying()) {
+  if (tank.isLevelGoingDown()) {
     publishMetrics();
   }
 
@@ -91,7 +91,7 @@ void debug() {
     // but I don´t have it
     // noInterrupts();
 
-    Serial.print(tank.isEmptying());
+    Serial.print(tank.isLevelGoingDown());
     Serial.print(", ");
 
     Serial.print(tank.getWaterLevelDistance());

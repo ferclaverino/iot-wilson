@@ -51,7 +51,7 @@ const bool Tank::isMinLevel() {
   return isMinLevel;
 }
 
-const bool Tank::isEmptying() {
+const bool Tank::isLevelGoingDown() {
   return _isEmptying;
 }
 

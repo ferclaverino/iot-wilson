@@ -13,7 +13,7 @@ public:
 
   const bool isMaxLevel();
   const bool isMinLevel();
-  const bool isEmptying();
+  const bool isLevelGoingDown();
   const float getEmptiedTimeSpanInSeconds();
 
 private:
