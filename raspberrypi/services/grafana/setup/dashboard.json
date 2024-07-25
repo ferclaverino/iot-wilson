@@ -219,7 +219,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-RdYlGr"
+            "mode": "thresholds"
           },
           "mappings": [],
           "max": 3000,
@@ -228,8 +228,16 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 800
+              },
+              {
+                "color": "green",
+                "value": 1000
               }
             ]
           },
@@ -417,13 +425,13 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Wilson",
   "uid": "bds6999hejx1cd",
-  "version": 31,
+  "version": 3,
   "weekStart": ""
 }
