@@ -21,9 +21,14 @@ const bool Wait::done() {
   return (doneStart() && doneLoop());
 }
 
-const unsigned int Wait::getTimeSpanInMillis()
-{
+const unsigned int Wait::getDoneTimeSpanInMillis() {
   return _lastLoopTimeSpan;
+}
+
+const unsigned int Wait::getInProgressTimeSpanInMillis() {
+  const unsigned long nowTimestamp = millis();
+  const unsigned long inProgressTimeSpan = nowTimestamp - _lastLoopTimestamp;
+  return inProgressTimeSpan;
 }
 
 const bool Wait::doneLoop() {

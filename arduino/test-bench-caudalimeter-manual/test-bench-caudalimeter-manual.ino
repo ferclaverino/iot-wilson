@@ -22,7 +22,7 @@
 
 // Waiters setup
 #define WAIT_FOR_DEBUG 1000
-#define WAIT_FOR_PUBLISH_LOOP 1000
+#define WAIT_FOR_PUBLISH_LOOP 5000
 #define WAIT_FOR_PUBLISH_START 5000
 
 // Sensors and actuators
@@ -37,7 +37,14 @@ TicksFrequency ticksFrequency;
 
 // Waiters
 Wait waitforDebug(WAIT_FOR_DEBUG);
-Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
+
+// works for serial monitor
+Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP);
+
+// works for raspberry pi connection and nodered
+// we need to wait 5 seconds until first publish
+// to avoid nodered crash
+// Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
 
 // Gateways
 MetricsGateway metricsGateway(Serial);
@@ -59,11 +66,17 @@ void loop() {
   if (maxLevelButton.isToggle()) {
     tank.setWaterLevelOnMax();
     caudalimeter.reset();
+    ticksFrequency.reset();
   }
 
   if (minLevelButton.isToggle()) {
     tank.setWaterLevelOnMin();
-    logTankEmptied();
+
+    // When tank is at min level
+    // could be there is some caudalimeter ticks between last published metrics and now
+    // so we publish those pending metrics to avoid missing them
+    publishPendingMetrics();
+    // logTankEmptied();
   }
 
   if (tank.isMinLevel()) {
@@ -74,11 +87,11 @@ void loop() {
     pumpRelay.off();
   }
 
-  // if (tank.isLevelGoingDown()) {
-  //   publishMetrics();
-  // }
+  if (tank.isLevelGoingDown()) {
+    waitAndPublishMetrics();
+  }
 
-  debug();
+  // debug();
 }
 
 void logTankEmptied() {
@@ -89,18 +102,35 @@ void logTankEmptied() {
   Serial.println();
 }
 
-void publishMetrics() {
+void waitAndPublishMetrics() {
   if (waitforPublish.done()) {
-    metricsGateway.publishPulseCount(caudalimeter.getTickCount());
-    caudalimeter.reset();
+    unsigned int timeSpan = waitforPublish.getDoneTimeSpanInMillis();
+    publishMetrics(timeSpan);
   }
+}
+
+void publishPendingMetrics() {
+  unsigned int timeSpan = waitforPublish.getInProgressTimeSpanInMillis();
+  publishMetrics(timeSpan);
+}
+
+void publishMetrics(unsigned int timeSpan) {
+  // metricsGateway.publishPulseCount(caudalimeter.getTickCount());
+  // caudalimeter.reset();
+
+  float frequency = ticksFrequency.getFrequencyInHz(
+    caudalimeter.getTickCount(),
+    timeSpan
+  );
+
+  metricsGateway.publishFrequency(frequency, timeSpan);
 }
 
 void debug() {
   if (waitforDebug.done()) {
     Serial.print("debug: ");
 
-    Serial.print(waitforDebug.getTimeSpanInMillis());
+    Serial.print(waitforDebug.getDoneTimeSpanInMillis());
     Serial.print(", ");
 
     // There is a serial and interrupts issue: https://forum.arduino.cc/t/nointerrupts-and-serial-write-issues/140133
@@ -121,7 +151,7 @@ void debug() {
 
     Serial.print(ticksFrequency.getFrequencyInHz(
       caudalimeter.getTickCount(),
-      waitforDebug.getTimeSpanInMillis()
+      waitforDebug.getDoneTimeSpanInMillis()
     ));
 
     Serial.print(", ");

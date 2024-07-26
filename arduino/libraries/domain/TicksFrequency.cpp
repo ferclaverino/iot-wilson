@@ -8,6 +8,10 @@ float TicksFrequency::getFrequencyInHz(unsigned long currentTickCount, unsigned 
   return frequency;
 }
 
+void TicksFrequency::reset() {
+  _lastTickCount = 0;
+}
+
 unsigned long TicksFrequency::getDifTickCount(unsigned long currentTickCount) {
   unsigned long difTickCount = currentTickCount - _lastTickCount;
   _lastTickCount = currentTickCount;

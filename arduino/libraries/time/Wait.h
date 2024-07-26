@@ -6,7 +6,8 @@ public:
   Wait(const unsigned int waitTimeForLoopInmillis);
   Wait(const unsigned int waitTimeForLoopInmillis, const unsigned int waitTimeForStartInmillis);
   const bool done();
-  const unsigned int getTimeSpanInMillis();
+  const unsigned int getDoneTimeSpanInMillis();
+  const unsigned int getInProgressTimeSpanInMillis();
 
 private:
   unsigned int _waitTimeForLoopInmillis;
