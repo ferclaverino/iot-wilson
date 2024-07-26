@@ -39,12 +39,12 @@ TicksFrequency ticksFrequency;
 Wait waitforDebug(WAIT_FOR_DEBUG);
 
 // works for serial monitor
-Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP);
+// Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP);
 
 // works for raspberry pi connection and nodered
 // we need to wait 5 seconds until first publish
 // to avoid nodered crash
-// Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
+Wait waitforPublish(WAIT_FOR_PUBLISH_LOOP, WAIT_FOR_PUBLISH_START);
 
 // Gateways
 MetricsGateway metricsGateway(Serial);
