@@ -1,6 +1,6 @@
 #include "TicksFrequency.h"
 
-float TicksFrequency::getFrequency(unsigned long currentTickCount, unsigned int timeSpanInMillis)
+float TicksFrequency::getFrequencyInHz(unsigned long currentTickCount, unsigned int timeSpanInMillis)
 {
   unsigned long difTickCount = getDifTickCount(currentTickCount);
   float timeSpanInSeconds = (float)timeSpanInMillis / 1000.0;

@@ -21,8 +21,8 @@
 #define TANK_VOLUME 3000
 
 // Waiters setup
-#define WAIT_FOR_DEBUG 5000
-#define WAIT_FOR_PUBLISH_LOOP 5000
+#define WAIT_FOR_DEBUG 1000
+#define WAIT_FOR_PUBLISH_LOOP 1000
 #define WAIT_FOR_PUBLISH_START 5000
 
 // Sensors and actuators
@@ -119,7 +119,7 @@ void debug() {
     Serial.print(caudalimeter.getTickCount());
     Serial.print(", ");
 
-    Serial.print(ticksFrequency.getFrequency(
+    Serial.print(ticksFrequency.getFrequencyInHz(
       caudalimeter.getTickCount(),
       waitforDebug.getTimeSpanInMillis()
     ));

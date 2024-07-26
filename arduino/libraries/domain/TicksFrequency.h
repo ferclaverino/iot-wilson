@@ -5,7 +5,7 @@
 
 class TicksFrequency {
 public:
-  float getFrequency(unsigned long currentTickCount, unsigned int timeSpanInMillis);
+  float getFrequencyInHz(unsigned long currentTickCount, unsigned int timeSpanInMillis);
 private:
   unsigned long _lastTickCount = 0;
   unsigned long getDifTickCount(unsigned long currentTickCount);
