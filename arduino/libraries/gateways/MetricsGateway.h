@@ -7,7 +7,7 @@
 class MetricsGateway {
 public:
   MetricsGateway(Stream& port);
-  void publish(const unsigned long pulseCount);
+  void publishPulseCount(const unsigned long pulseCount);
 
 private:
   Stream& _port;

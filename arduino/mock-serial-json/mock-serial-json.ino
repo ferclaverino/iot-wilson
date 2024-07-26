@@ -16,6 +16,6 @@ void loop() {
 
   if (waitforPublish.done()) {
     long turnsCount = random(0, 10);
-    metricsGateway.publish(turnsCount);
+    metricsGateway.publishPulseCount(turnsCount);
   }
 }

@@ -91,7 +91,7 @@ void logTankEmptied() {
 
 void publishMetrics() {
   if (waitforPublish.done()) {
-    metricsGateway.publish(caudalimeter.getTickCount());
+    metricsGateway.publishPulseCount(caudalimeter.getTickCount());
     caudalimeter.reset();
   }
 }
