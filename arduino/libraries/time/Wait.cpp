@@ -8,6 +8,7 @@ Wait::Wait(const unsigned int waitTimeForLoopInmillis, const unsigned int waitTi
   _waitTimeForLoopInmillis = waitTimeForLoopInmillis;
   _waitTimeForStartInmillis = waitTimeForStartInmillis;
   _lastLoopTimestamp = 0;
+  _lastLoopTimeSpan = 0;
   if (waitTimeForStartInmillis > 0) {
     _isDoneStart = false;
   }
@@ -20,6 +21,11 @@ const bool Wait::done() {
   return (doneStart() && doneLoop());
 }
 
+const unsigned int Wait::getTimeSpanInMillis()
+{
+  return _lastLoopTimeSpan;
+}
+
 const bool Wait::doneLoop() {
   const unsigned long nowTimestamp = millis();
   const unsigned long gap = nowTimestamp - _lastLoopTimestamp;
@@ -30,6 +36,9 @@ const bool Wait::doneLoop() {
 
     // Update last timestamp so difference between calls is > waitTimeInmillis
     _lastLoopTimestamp = nowTimestamp;
+
+    // Set time span for last (current) loop
+    _lastLoopTimeSpan = gap;
   }
 
   return isDone;
