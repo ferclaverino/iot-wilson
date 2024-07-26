@@ -85,8 +85,8 @@ I recommend the manual installation to get latest version.
 
 ```
 cd iot-caudalimeter/arduino/
-arduino-cli compile --fqbn arduino:avr:uno mock-serial-json
-arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno mock-serial-json
+arduino-cli compile --fqbn arduino:avr:uno ${arduino-sketch}
+arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno ${arduino-sketch}
 ```
 
 ### Debug serial monitor
@@ -96,6 +96,12 @@ arduino-cli monitor -p /dev/ttyACM0
 ```
 
 ## During development
+
+### Upload and serial monitor mock test bench
+
+```
+arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-mock && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-mock && arduino-cli monitor -p /dev/ttyACM0
+```
 
 ### Upload and serial monitor manual test bench
 
