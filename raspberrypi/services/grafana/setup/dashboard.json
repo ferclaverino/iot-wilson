@@ -257,9 +257,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["mean"],
+          "calcs": ["last"],
           "fields": "",
-          "values": false
+          "values": true
         },
         "showThresholdLabels": true,
         "showThresholdMarkers": true,
@@ -272,12 +272,7 @@
             "type": "influxdb",
             "uid": "$data-source-id"
           },
-          "groupBy": [
-            {
-              "params": ["1m"],
-              "type": "time"
-            }
-          ],
+          "groupBy": [],
           "hide": false,
           "measurement": "sensors",
           "orderByTime": "ASC",
@@ -287,12 +282,12 @@
           "select": [
             [
               {
-                "params": ["volume1"],
+                "params": ["flow1"],
                 "type": "field"
               },
               {
                 "params": [],
-                "type": "sum"
+                "type": "mean"
               }
             ]
           ],
@@ -388,12 +383,7 @@
             "type": "influxdb",
             "uid": "$data-source-id"
           },
-          "groupBy": [
-            {
-              "params": ["1m"],
-              "type": "time"
-            }
-          ],
+          "groupBy": [],
           "measurement": "sensors",
           "orderByTime": "ASC",
           "policy": "default",
@@ -402,12 +392,8 @@
           "select": [
             [
               {
-                "params": ["volume1"],
+                "params": ["flow1"],
                 "type": "field"
-              },
-              {
-                "params": [],
-                "type": "sum"
               }
             ]
           ],
@@ -418,20 +404,20 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "5s",
+  "refresh": "auto",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Wilson",
   "uid": "bds6999hejx1cd",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }
