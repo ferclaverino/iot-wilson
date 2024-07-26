@@ -48,26 +48,9 @@
     "z": "d67477d835fe3e8d",
     "name": "arduino",
     "serial": "4b1509729981ae3b",
-    "x": 150,
-    "y": 100,
+    "x": 90,
+    "y": 120,
     "wires": [["fd4e2e11583829bd", "6704e304cf9f4f78"]]
-  },
-  {
-    "id": "c09caacb6df1df28",
-    "type": "debug",
-    "z": "d67477d835fe3e8d",
-    "name": "debug transform 2 volume",
-    "active": false,
-    "tosidebar": true,
-    "console": false,
-    "tostatus": false,
-    "complete": "payload",
-    "targetType": "msg",
-    "statusVal": "",
-    "statusType": "auto",
-    "x": 850,
-    "y": 40,
-    "wires": []
   },
   {
     "id": "6f24d6ed488787bc",
@@ -83,32 +66,9 @@
     "retentionPolicyV18Flux": "",
     "org": "iot",
     "bucket": "wilson",
-    "x": 820,
-    "y": 100,
+    "x": 800,
+    "y": 120,
     "wires": []
-  },
-  {
-    "id": "5a674543afb5ee84",
-    "type": "change",
-    "z": "d67477d835fe3e8d",
-    "name": "transform to volume",
-    "rules": [
-      {
-        "t": "set",
-        "p": "payload",
-        "pt": "msg",
-        "to": "{\t    \"volume1\": payload.pulseCount * 3000 / 416\t}",
-        "tot": "jsonata"
-      }
-    ],
-    "action": "",
-    "property": "",
-    "from": "",
-    "to": "",
-    "reg": false,
-    "x": 560,
-    "y": 100,
-    "wires": [["c09caacb6df1df28", "6f24d6ed488787bc"]]
   },
   {
     "id": "fd4e2e11583829bd",
@@ -123,7 +83,7 @@
     "targetType": "msg",
     "statusVal": "",
     "statusType": "auto",
-    "x": 410,
+    "x": 290,
     "y": 40,
     "wires": []
   },
@@ -135,9 +95,9 @@
     "property": "payload",
     "action": "",
     "pretty": false,
-    "x": 370,
-    "y": 100,
-    "wires": [["5a674543afb5ee84", "7e13841bedbee324"]]
+    "x": 250,
+    "y": 120,
+    "wires": [["7e13841bedbee324", "fd52101fabfac239"]]
   },
   {
     "id": "7dc1824d1a070db3",
@@ -150,13 +110,13 @@
     "hdrout": "none",
     "multi": "one",
     "ret": "\\r\\n",
-    "temp": "timestamp,pulseCount",
+    "temp": "timestamp,frequency,timeSpan",
     "skip": "0",
     "strings": true,
     "include_empty_strings": "",
     "include_null_values": "",
-    "x": 710,
-    "y": 240,
+    "x": 650,
+    "y": 280,
     "wires": [["5a2bcf534888f4c4", "92a410a07a8e092a"]]
   },
   {
@@ -172,8 +132,8 @@
     "targetType": "msg",
     "statusVal": "",
     "statusType": "auto",
-    "x": 910,
-    "y": 180,
+    "x": 830,
+    "y": 220,
     "wires": []
   },
   {
@@ -188,8 +148,8 @@
     "initialize": "",
     "finalize": "",
     "libs": [],
-    "x": 540,
-    "y": 240,
+    "x": 480,
+    "y": 280,
     "wires": [["7dc1824d1a070db3"]]
   },
   {
@@ -203,8 +163,41 @@
     "createDir": false,
     "overwriteFile": "false",
     "encoding": "none",
-    "x": 920,
-    "y": 240,
+    "x": 840,
+    "y": 280,
     "wires": [[]]
+  },
+  {
+    "id": "fd52101fabfac239",
+    "type": "function",
+    "z": "d67477d835fe3e8d",
+    "name": "transform to flow and volume",
+    "func": "const frequency = msg.payload.frequency;\nconst timeSpan = msg.payload.timeSpan;\n\nconst flowInMlPerMinute = 123 * frequency + 234;\nconst timeSpanInMinute = timeSpan / 1000 / 60;\nconst volumeInMl = flowInMlPerMinute * timeSpanInMinute;\n\nmsg.payload = {\n    flow1: flowInMlPerMinute,\n    volume1: volumeInMl\n}\n\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 520,
+    "y": 120,
+    "wires": [["32c075c6e5b8dd02", "6f24d6ed488787bc"]]
+  },
+  {
+    "id": "32c075c6e5b8dd02",
+    "type": "debug",
+    "z": "d67477d835fe3e8d",
+    "name": "debug transform to flow and volume",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 860,
+    "y": 40,
+    "wires": []
   }
 ]
