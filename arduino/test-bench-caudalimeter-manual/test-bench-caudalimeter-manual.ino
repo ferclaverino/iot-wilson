@@ -153,7 +153,6 @@ void debug() {
       caudalimeter.getTickCount(),
       waitforDebug.getDoneTimeSpanInMillis()
     ));
-
     Serial.print(", ");
 
     Serial.println();
