@@ -100,7 +100,7 @@
           "tags": []
         }
       ],
-      "title": "Volume",
+      "title": "Total Volume",
       "type": "stat"
     },
     {
@@ -207,7 +207,7 @@
           "tags": []
         }
       ],
-      "title": "Volume per second",
+      "title": "Volume",
       "type": "timeseries"
     },
     {
@@ -294,7 +294,7 @@
           "tags": []
         }
       ],
-      "title": "Avg flow",
+      "title": "Avg Flow",
       "type": "gauge"
     },
     {
@@ -400,24 +400,23 @@
           "tags": []
         }
       ],
-      "title": "Flow per minute",
+      "title": "Flow",
       "type": "timeseries"
     }
   ],
-  "refresh": "auto",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-15m",
-    "to": "now"
+    "from": "2024-07-26T16:18:42.066Z",
+    "to": "2024-07-26T16:35:12.279Z"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Wilson",
   "uid": "bds6999hejx1cd",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
