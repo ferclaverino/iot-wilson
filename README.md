@@ -1,4 +1,4 @@
-# iot-caudalimeter
+# iot-wilson
 
 ## Install on Raspberry
 
@@ -47,7 +47,7 @@ I recommend the manual installation to get latest version.
 - Clone repo
 
   ```
-  git clone git@github.com:ferclaverino/iot-caudalimeter.git
+  git clone git@github.com:ferclaverino/iot-wilson.git
   ```
 
 ### Setup for 1st time
@@ -55,7 +55,7 @@ I recommend the manual installation to get latest version.
 - Start containers
 
   ```
-  cd iot-caudalimeter/raspberrypi
+  cd iot-wilson/raspberrypi
   docker compose up
   ```
 
@@ -84,7 +84,7 @@ I recommend the manual installation to get latest version.
 ### Upload arduino
 
 ```
-cd iot-caudalimeter/arduino/
+cd iot-wilson/arduino/
 arduino-cli compile --fqbn arduino:avr:uno ${arduino-sketch}
 arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno ${arduino-sketch}
 ```
