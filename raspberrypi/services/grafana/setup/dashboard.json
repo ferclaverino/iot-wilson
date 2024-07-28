@@ -24,7 +24,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "$data-source-id"
+        "uid": "${data-source-id}"
       },
       "fieldConfig": {
         "defaults": {
@@ -77,7 +77,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "$data-source-id"
+            "uid": "${data-source-id}"
           },
           "groupBy": [],
           "measurement": "sensors",
@@ -106,7 +106,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "$data-source-id"
+        "uid": "${data-source-id}"
       },
       "description": "",
       "fieldConfig": {
@@ -188,7 +188,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "$data-source-id"
+            "uid": "${data-source-id}"
           },
           "groupBy": [],
           "measurement": "sensors",
@@ -213,7 +213,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "$data-source-id"
+        "uid": "${data-source-id}"
       },
       "description": "",
       "fieldConfig": {
@@ -270,7 +270,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "$data-source-id"
+            "uid": "${data-source-id}"
           },
           "groupBy": [],
           "hide": false,
@@ -300,7 +300,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "$data-source-id"
+        "uid": "${data-source-id}"
       },
       "fieldConfig": {
         "defaults": {
@@ -381,7 +381,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "$data-source-id"
+            "uid": "${data-source-id}"
           },
           "groupBy": [],
           "measurement": "sensors",
