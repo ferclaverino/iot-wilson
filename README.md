@@ -127,3 +127,9 @@ arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno ${arduino-sketch}
 ```
 arduino-cli monitor -p /dev/ttyACM0
 ```
+
+### Expose your grafana service to internet
+
+```
+docker run cloudflare/cloudflared:latest tunnel --url http://${your rasberry pi IP address}:3000
+```
