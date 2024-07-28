@@ -2,20 +2,18 @@
 
 ## Install on Arduino
 
-You can install on arduino 3 possible sketches:
+You can install and use one of the following three sketches:
 
-- Tesch bench mock:
-  It publishes random metrics every 5 seconds.
-  This is usefull test integration with nodered and granafa.
-- Tesch bench manual:
-  You control water level on tank using buttons.
-  This is usefull for making sure you are always passing 3L of water.
-  So you can measure count of pulses on caudalitemer and time span to do proper calibration.
-- tesch bench manual:
-  Water level on tank is controlled by mesuring distance using ultrasonic sensor.
-  It will be between 4L and 1L aprox and providing and approximate volume of 3L.
-  This i usefull to run test bench for hours and make sure measures are stable
-  and everything works well against long periods of time.
+- Mock test bench
+  - Function: Publishes random metrics every 5 seconds.
+  - Use Case: Ideal for testing integration with Node-RED and Grafana.
+- Manual test bench:
+  - Function: Allows you to control the water level in a tank using buttons.
+  - Use Case: Useful for ensuring a consistent flow of 3 liters of water.
+    You can measure the number of pulses from the flow meter and the time required for proper calibration.
+- AUtomatic test bench:
+  - Function: Measures water level in the tank using an ultrasonic sensor, maintaining an approximate volume between 1 and 4 liters.
+  - Use Case: Suitable for running long-term tests to ensure stability and accuracy of measurements over extended periods.
 
 ### Upload mock test bench
 
