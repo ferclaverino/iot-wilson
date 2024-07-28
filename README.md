@@ -1,5 +1,40 @@
 # iot-wilson
 
+## Install on Arduino
+
+You can instal on arduino 3 possible sketches:
+
+- Tesch bench mock:
+  It publishes random metrics every 5 seconds.
+  This is usefull test integration with nodered and granafa.
+- Tesch bench manual:
+  You control water level on tank using buttons.
+  This is usefull for making sure you are always passing 3L of water.
+  So you can measure counter of pulses published on caudalitemer and time to do proper calibration.
+- tesch bench manual:
+  Water level on tank is controlled by mesuring distance using ultrasonic sensor.
+  It will be between 4L and 1L aprox and provifing and aproximate volume of 3L.
+  This i usefull to run test bench for hours and make sure measures are stable
+  and everything works well against long periods of time.
+
+### Upload mock test bench
+
+```
+arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-mock && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-mock
+```
+
+### Upload manual test bench
+
+```
+arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-manual && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-manual
+```
+
+### Upload automatic test bench
+
+```
+arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-auto && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-auto && arduino-cli monitor -p /dev/ttyACM0
+```
+
 ## Install on Raspberry
 
 ### Install Raspberry Pi OS lite
@@ -78,41 +113,6 @@ I recommend the manual installation to get latest version.
 - Create flow on node red
   - Import `services/nodered/setup/flows.json`
   - Deploy
-
-## Install on Arduino
-
-You can instal on arduino 3 possible sketches:
-
-- Tesch bench mock:
-  It publishes random metrics every 5 seconds.
-  This is usefull test integration with nodered and granafa.
-- Tesch bench manual:
-  You control water level on tank using buttons.
-  This is usefull for making sure you are always passing 3L of water.
-  So you can measure counter of pulses published on caudalitemer and time to do proper calibration.
-- tesch bench manual:
-  Water level on tank is controlled by mesuring distance using ultrasonic sensor.
-  It will be between 4L and 1L aprox and provifing and aproximate volume of 3L.
-  This i usefull to run test bench for hours and make sure measures are stable
-  and everything works well against long periods of time.
-
-### Upload mock test bench
-
-```
-arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-mock && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-mock
-```
-
-### Upload manual test bench
-
-```
-arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-manual && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-manual
-```
-
-### Upload automatic test bench
-
-```
-arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-auto && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-auto && arduino-cli monitor -p /dev/ttyACM0
-```
 
 ## During development
 
