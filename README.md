@@ -112,6 +112,13 @@ I recommend the manual installation to get latest version.
   - Import `services/nodered/setup/flows.json`
   - Deploy
 
+## Electronics
+
+- YF-S201 caudalimeter has a specific working position.
+  Respect the flow arrow (on chasis)
+  Also hall sensor should be on top of propeller.
+  If not, then you will have more random errors.
+
 ## During development
 
 ### Upload any arduino sketch
