@@ -13,9 +13,10 @@ You can install and use one of the following three sketches:
   - Use Case: Useful for ensuring a consistent flow of 3 liters of water.
     You can measure the number of pulses from the flow meter and the time required for proper calibration.
   - [Electronic view](./doc/electronic-view.md#manual-test-bench)
-- AUtomatic test bench:
+- Automatic test bench:
   - Function: Measures water level in the tank using an ultrasonic sensor, maintaining an approximate volume between 1 and 4 liters.
   - Use Case: Suitable for running long-term tests to ensure stability and accuracy of measurements over extended periods.
+  - [Electronic view](./doc/electronic-view.md#automatic-test-bench)
 
 ### Upload mock test bench
 
