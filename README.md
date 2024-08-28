@@ -1,41 +1,5 @@
 # iot-wilson
 
-## Install on Arduino
-
-You can install and use one of the following three sketches:
-
-- Mock test bench
-  - Function: Publishes random metrics every 5 seconds.
-  - Use Case: Ideal for testing integration with Node-RED and Grafana.
-  - [Electronic view](./doc/electronic-view.md#mock-test-bench)
-- Manual test bench:
-  - Function: Allows you to control the water level in a tank using buttons.
-  - Use Case: Useful for ensuring a consistent flow of 3 liters of water.
-    You can measure the number of pulses from the flow meter and the time required for proper calibration.
-  - [Electronic view](./doc/electronic-view.md#manual-test-bench)
-- Automatic test bench:
-  - Function: Measures water level in the tank using an ultrasonic sensor, maintaining an approximate volume between 1 and 4 liters.
-  - Use Case: Suitable for running long-term tests to ensure stability and accuracy of measurements over extended periods.
-  - [Electronic view](./doc/electronic-view.md#automatic-test-bench)
-
-### Upload mock test bench
-
-```
-arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-mock && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-mock
-```
-
-### Upload manual test bench
-
-```
-arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-manual && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-manual
-```
-
-### Upload automatic test bench
-
-```
-arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-auto && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-auto && arduino-cli monitor -p /dev/ttyACM0
-```
-
 ## Install on Raspberry
 
 ### Install Raspberry Pi OS lite
@@ -105,6 +69,7 @@ I recommend the manual installation to get latest version.
 
 - Create dashboard on grafana
 
+  - Go to grafana: http://pi3.local:3000/
   - Create datasource
     - url: http://influxdb:8086
     - database: wilson
@@ -112,8 +77,45 @@ I recommend the manual installation to get latest version.
   - Import `services/grafana/setup/dashboard.json`
 
 - Create flow on node red
+  - Go to node red: pi3.local:1880
   - Import `services/nodered/setup/flows.json`
   - Deploy
+
+## Install on Arduino
+
+You can install and use one of the following three sketches:
+
+- Mock test bench
+  - Function: Publishes random metrics every 5 seconds.
+  - Use Case: Ideal for testing integration with Node-RED and Grafana.
+  - [Electronic view](./doc/electronic-view.md#mock-test-bench)
+- Manual test bench:
+  - Function: Allows you to control the water level in a tank using buttons.
+  - Use Case: Useful for ensuring a consistent flow of 3 liters of water.
+    You can measure the number of pulses from the flow meter and the time required for proper calibration.
+  - [Electronic view](./doc/electronic-view.md#manual-test-bench)
+- Automatic test bench:
+  - Function: Measures water level in the tank using an ultrasonic sensor, maintaining an approximate volume between 1 and 4 liters.
+  - Use Case: Suitable for running long-term tests to ensure stability and accuracy of measurements over extended periods.
+  - [Electronic view](./doc/electronic-view.md#automatic-test-bench)
+
+### Upload mock test bench
+
+```
+arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-mock && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-mock
+```
+
+### Upload manual test bench
+
+```
+arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-manual && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-manual
+```
+
+### Upload automatic test bench
+
+```
+arduino-cli compile --fqbn arduino:avr:uno test-bench-caudalimeter-auto && arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno test-bench-caudalimeter-auto && arduino-cli monitor -p /dev/ttyACM0
+```
 
 ## Electronics
 
