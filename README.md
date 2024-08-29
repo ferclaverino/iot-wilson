@@ -77,7 +77,7 @@ I recommend the manual installation to get latest version.
   - Import `services/grafana/setup/dashboard.json`
 
 - Create flow on node red
-  - Go to node red: pi3.local:1880
+  - Go to node red: http://pi3.local:1880
   - Import `services/nodered/setup/flows.json`
   - Deploy
 
